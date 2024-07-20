@@ -36,7 +36,7 @@ app.get("/:id" , async(req , res) =>{
 
     console.log(referer);
 
-    const updateData = await urlData.findByIdAndUpdate(`${id}`, { $push : {analytics : {visitTime : visitTime , ip : ip , referer : referer , geo : geo}}});
+    urlData.findByIdAndUpdate(`${id}`, { $push : {analytics : {visitTime : visitTime , ip : ip , referer : referer , geo : geo}}});
     
     
     res.redirect(data.link);

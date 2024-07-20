@@ -17,13 +17,22 @@ router.get("/" , async (req , res) => {
     if(link){
         const id = uuidv4();
         
-        await urlData.create({ _id : id , link : link});
-            
-        // return the url
-        res.status(200).json({
-            msg : "success",
-            url : `${domain}/${id}`
-        });
+        try{
+
+            await urlData.create({ _id : id , link : link});
+                      
+            // return the url
+            res.status(200).json({
+                msg : "success",
+                url : `${domain}/${id}`
+            });
+
+        }catch(e){
+
+            console.log(e);
+            res.sendStatus(500);
+
+        }  
 
     }else{
 

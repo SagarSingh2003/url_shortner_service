@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import shortenerRoute from "./routes/shortener.js";
 import urlData from  "./model/urlData.js"
+import geoip from "geoip-lite";
 import "./db/db.js";
 import "dotenv/config";
 
@@ -31,9 +32,11 @@ app.get("/:id" , async(req , res) =>{
     const ip = req.ip;
     const visitTime = Date.now();    
 
+    const geo = geoip.lookup(ip);
+
     console.log(referer);
 
-    const updateData = await urlData.findByIdAndUpdate(`${id}`, { $push : {analytics : {visitTime : visitTime , ip : ip , referer : referer}}});
+    const updateData = await urlData.findByIdAndUpdate(`${id}`, { $push : {analytics : {visitTime : visitTime , ip : ip , referer : referer , geo : geo}}});
     
     
     res.redirect(data.link);

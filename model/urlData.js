@@ -7,7 +7,8 @@ const urlDataSchema = new Schema({
     analytics : [{
             visitTime : Date,
             referer: String,
-            ip : String
+            ip : String,
+            geo : Object
     }]
 
 });

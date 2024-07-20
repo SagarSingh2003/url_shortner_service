@@ -3,7 +3,7 @@ import geoip from "geoip-lite";
 import {v4 as uuidv4} from "uuid";
 import domain from "../domain/domain.js";
 
-export default urlOperations = {
+const urlOperations = {
 
     getLinkAndUpdateAnalytics : async (req , res) => {
 
@@ -79,3 +79,5 @@ export default urlOperations = {
         
     }
 }
+
+export default urlOperations;

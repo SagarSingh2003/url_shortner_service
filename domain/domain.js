@@ -1,4 +1,4 @@
 
-const domain = "http://localhost:3000";
+const domain = " https://url-shortner-service-tlmz.onrender.com";
 
 export default domain;

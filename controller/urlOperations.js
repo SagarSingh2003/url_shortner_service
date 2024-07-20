@@ -11,7 +11,7 @@ const urlOperations = {
         
         const referer = req.headers.referer;
         const ip = req.ip;
-        const visitTime = newDate(Date.now()); 
+        const visitTime = new Date(Date.now()); 
     
         const geo = geoip.lookup(ip);
     

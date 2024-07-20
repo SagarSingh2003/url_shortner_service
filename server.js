@@ -26,7 +26,7 @@ app.get("/:id" , async(req , res) =>{
     
     //get data from hashmap
     const query = urlData.where({ _id: `${id}` });
-    const data = await query.findOne();
+    
 
     const referer = req.headers.referer;
     const ip = req.ip;
@@ -36,7 +36,7 @@ app.get("/:id" , async(req , res) =>{
 
     console.log(referer);
 
-    urlData.findByIdAndUpdate(`${id}`, { $push : {analytics : {visitTime : visitTime , ip : ip , referer : referer , geo : geo}}});
+    const data = urlData.findByIdAndUpdate(`${id}`, { $push : {analytics : {visitTime : visitTime , ip : ip , referer : referer , geo : geo}}});
     
     
     res.redirect(data.link);

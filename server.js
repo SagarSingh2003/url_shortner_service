@@ -1,8 +1,7 @@
 import cors from "cors";
 import express from "express";
 import shortenerRoute from "./routes/shortener.js";
-import urlData from  "./model/urlData.js"
-import geoip from "geoip-lite";
+import urlOperations from "./controller/urlOperations.js";
 import "./db/db.js";
 import "dotenv/config";
 
@@ -18,30 +17,7 @@ app.use(express.json());
 
 app.use("/shorten" , shortenerRoute );
 
-app.get("/:id" , async(req , res) =>{
-
-    console.log(req.ip);
-    console.log(req.headers);
-    const id = req.params.id;
-    
-    //get data from hashmap
-    const query = urlData.where({ _id: `${id}` });
-    
-
-    const referer = req.headers.referer;
-    const ip = req.ip;
-    const visitTime = Date.now();    
-
-    const geo = geoip.lookup(ip);
-
-    console.log(referer);
-
-    const data = await urlData.findByIdAndUpdate(`${id}`, { $push : {analytics : {visitTime : visitTime , ip : ip , referer : referer , geo : geo}}});
-    
-    
-    res.redirect(data.link);
-
-});
+app.get("/:id" , urlOperations.getLinkAndUpdateAnalytics);
 
 app.listen(PORT , () => {
     console.log(`app listening on port ${PORT}`)

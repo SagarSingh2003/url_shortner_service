@@ -14,7 +14,10 @@ const urlOperations = {
         const visitTime = new Date(Date.now()); 
     
         const geo = geoip.lookup(ip);
-    
+
+        console.log(req.cookies);
+
+
         try{
 
             const data = await urlData.findByIdAndUpdate(`${id}`, 
@@ -33,9 +36,10 @@ const urlOperations = {
                 }
             );
             
-                
-            res.redirect(data.link);
+            
+            res.cookie('user_id', 1111111111111111111111111 , { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
+            res.redirect(data.link);
         }catch(err){
             res.sendStatus(500)
         }
@@ -50,7 +54,7 @@ const urlOperations = {
         //store the link with an id
         if(link){
             const id = uuidv4();
-            
+
             try{
     
                 await urlData.create({
@@ -78,6 +82,11 @@ const urlOperations = {
     
         
     }
+};
+
+const logEvent = (userId , event) => {
+    console.log(userId , event , "information")
 }
+
 
 export default urlOperations;
